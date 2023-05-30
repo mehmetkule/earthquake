@@ -46,7 +46,8 @@ public class EarthquakeService {
         EarthquakeApiResponse apiResponse = objectMapper.readValue(responseBody, EarthquakeApiResponse.class);
         List<Earthquake> earthquakes = new ArrayList<>();
         apiResponse.getFeatures().forEach(feature -> {
-            if (feature.getProperties().getSources().contains(country)) {
+            String sources = feature.getProperties().getSources().replace(",", "");
+            if (sources.contains(country)) {
                 Earthquake earthquake = new Earthquake();
                 earthquake.setCountry(country);
                 earthquake.setPlace(feature.getProperties().getPlace());
